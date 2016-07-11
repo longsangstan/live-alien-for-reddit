@@ -1,0 +1,24 @@
+{
+  "name": "exampleRedux",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "fix_npm2": "npm run _fix_npm2_step1; npm run _fix_npm2_step2",
+    "_fix_npm2_step1": "rm -rf node_modules/react-native/node_modules/react; rm -rf node_modules/react-native/node_modules/fbjs; rm -rf node_modules/react/node_modules/fbjs",
+    "_fix_npm2_step2": "cd node_modules; find . -name .babelrc | grep -v packager | xargs rm"
+  },
+  "dependencies": {
+    "fbjs": "^0.6.1",
+    "react": "latest",
+    "react-native": "latest",
+    "react-native-navigation": "latest",
+    "react-native-search-bar": "^2.11.0",
+    "react-native-vector-icons": "^2.0.3",
+    "react-redux": "^4.0.6",
+    "redux": "^3.0.5",
+    "redux-thunk": "^1.0.3",
+    "seamless-immutable": "^5.0.1",
+    "shitty-qs": "^1.0.1"
+  }
+}
