@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import SubredditsList from '../components/SubredditsList';
+import DiscoverPage from '../components/DiscoverPage';
 
 
 // this is a traditional React component connected to the redux store
@@ -29,7 +29,7 @@ class DiscoverScreen extends Component {
 
   render() {
     return (
-      <SubredditsList />
+      <DiscoverPage />
     );
   }
 

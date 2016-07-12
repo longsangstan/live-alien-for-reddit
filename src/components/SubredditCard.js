@@ -17,17 +17,21 @@ export default class SubredditCard extends Component {
   }
 
   render() {
+    let public_description = (this.props.public_description).replace(/(?:\r\n|\r|\n)/g, ' ');
+    let url = '/r/' + this.props.display_name;
+    let icon_img = this.props.icon_img || 'http://rawapk.com/wp-content/uploads/2016/04/Reddit-The-Official-App-Icon.png';
+
     return (
       <TouchableHighlight onPress={this.onPress} style={styles.cardContainer}>
         <View>
           <View style={styles.row}>
-            <Image style={styles.thumb} source={{uri: 'http://rawapk.com/wp-content/uploads/2016/04/Reddit-The-Official-App-Icon.png'}} />
+            <Image style={styles.thumb} source={{uri: icon_img}} />
             <View style={styles.textContainer}>
               <Text style={styles.title}>
-                /r/soccer
+                {url}
               </Text>
               <Text style={styles.description}>
-                News, results and discussion about the beautiful game.
+                {public_description}
               </Text>
             </View>
           </View>
@@ -47,6 +51,7 @@ const styles = StyleSheet.create({
   thumb: {
     width: 50,
     height: 50,
+    borderRadius: 25,
   },
   textContainer: {
     flex: 1,
