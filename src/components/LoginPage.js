@@ -33,7 +33,7 @@ export default class LoginPage extends Component {
 
   render() {
     return (
-      <Image source={require('../../img/background3.jpg')} style={styles.container}>
+      <Image source={require('../../img/background.jpg')} style={styles.container}>
         <Icon.Button name="logo-reddit" backgroundColor="#d24919" borderRadius={100} iconStyle={{marginLeft: 5}} onPress={this.connectWithInstagram}>
           <Text style={{marginRight: 5, fontSize: 15, color:'white', fontWeight: 'bold'}}>Log In With Reddit</Text>
         </Icon.Button>

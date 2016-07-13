@@ -11,35 +11,12 @@ import {
 } from 'react-native';
 import SubredditCard from './SubredditCard';
 import SearchBar from 'react-native-search-bar';
+import LoadingIcon from './LoadingIcon';
+import ErrorIcon from './ErrorIcon';
 
 
-// TODO - move to config
-let PresetSubreddits = [
-  {
-    "id": "2qi58",
-    "display_name": "soccer",
-    "public_description": "The football subreddit.\n\nNews, results and discussion about the beautiful game.",
-    "icon_img": ""
-  },
-  {
-    "id": "2qo4s",
-    "display_name": "nba",
-    "public_description": "All things NBA basketball.",
-    "icon_img": ""
-  },
-  {
-    "id": "2qimj",
-    "display_name": "formula1",
-    "public_description": "Formula 1 news and stories",
-    "icon_img": ""
-  },
-  {
-    "id": "2qj0l",
-    "display_name": "Boxing",
-    "public_description": "",
-    "icon_img": ""
-  }
-]
+import PresetSubreddits from '../config/PresetSubreddits';
+
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 let initialState = {
@@ -50,6 +27,10 @@ let initialState = {
 }
 
 export default class DiscoverPage extends Component {
+  static propTypes = {
+    navigator: React.PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
     this.state = initialState;
@@ -105,9 +86,7 @@ export default class DiscoverPage extends Component {
     // TODO - save img
     let subredditsList;
     if(this.state.isLoading) {
-      subredditsList = <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                          <Image style={styles.loadingImg} source={{uri: 'http://i.imgur.com/OxBJ2jQ.gif'}} />
-                       </View>
+      subredditsList = <LoadingIcon />
     } else {
       subredditsList = <ListView
                           scrollsToTop={false} // prevent conflict with scroll view
@@ -116,14 +95,11 @@ export default class DiscoverPage extends Component {
                         />
     }
     if(this.state.hasNoResults) {
-      subredditsList = <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                          <Image style={styles.noResultsImg} source={{uri: 'http://i.imgur.com/BFyusAV.jpg'}} />
-                          <Text style={{backgroundColor: 'transparent', color: 'black', fontWeight: 'bold'}}>Can't find anything:(</Text>
-                       </View>
+      subredditsList = <ErrorIcon errorMsg={'Can\'t find anything:('}/>
     }
 
     return (     
-      <Image source={require('../../img/background3.jpg')} style={styles.container}>
+      <Image source={require('../../img/background.jpg')} style={styles.container}>
         <ScrollView style={styles.scrollViewContainer} keyboardDismissMode="on-drag">
           <SearchBar
             ref='searchBar'
@@ -153,15 +129,5 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     height: 40
-  },
-  loadingImg: {
-    margin: 10,
-    width: 45,
-    height: 69,
-  },
-  noResultsImg: {
-    margin: 10,
-    width: 45,
-    height: 53
   }
 });

@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import PostCard from './PostCard';
+import LoadingIcon from './LoadingIcon';
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -77,9 +78,7 @@ export default class SubredditPage extends Component {
     let postsList;
     if(this.state.isLoading) {
       postsList = <View style={{marginTop: 65}}>
-                      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <Image style={styles.loadingImg} source={{uri: 'http://i.imgur.com/OxBJ2jQ.gif'}} />
-                      </View>
+                      <LoadingIcon />
                   </View>
     } else {
       postsList = <ListView
@@ -97,7 +96,7 @@ export default class SubredditPage extends Component {
     }
 
     return (     
-      <Image source={require('../../img/background3.jpg')} style={styles.container}>
+      <Image source={require('../../img/background.jpg')} style={styles.container}>
           {postsList}
       </Image>
     );
@@ -113,10 +112,5 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     marginTop: 65,
     marginBottom: 50
-  },
-  loadingImg: {
-    margin: 10,
-    width: 45,
-    height: 69,
-  },
+  }
 });
