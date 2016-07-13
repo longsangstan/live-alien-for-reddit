@@ -48,6 +48,7 @@ export default class DiscoverPage extends Component {
     super(props);
     this.state = initialState;
 
+    this.fetchSubreddits = this.fetchSubreddits.bind(this);
     this.renderRow = this.renderRow.bind(this);
   }
 
@@ -55,37 +56,34 @@ export default class DiscoverPage extends Component {
     this.setState(initialState);
   }
 
-  // fetch -> parse -> setState
-  onSearchButtonPress(searchBar) {
-    this.setState({isLoading: true});
-
-    let subredditsArr = [];
-
-    fetch('https://www.reddit.com/search.json?q=' + searchBar + '&type=sr')
+  fetchSubreddits(query) {
+    return fetch('https://www.reddit.com/search.json?q=' + query + '&type=sr')
       .then((response) => response.json())
       .then((responseJson) => {
-        // parse data
+        let subredditsArr = [];
+
         let children = responseJson.data.children;
-
-        if(children.length === 0) {
-          this.setState({
-            hasNoResults: true,
-          })
-        }
-
         for (var i = 0; i < children.length; i++) {
           let subredditData = children[i].data;
           subredditsArr.push(subredditData);
         }
         
-        this.setState({
-          dataSource: ds.cloneWithRows(subredditsArr),
-          isLoading: false
-        })
+        return subredditsArr;
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  onSearchButtonPress(searchBar) {
+    this.setState({isLoading: true});
+
+    this.fetchSubreddits(searchBar)
+    .then((subredditsArr) => this.setState({
+      dataSource: ds.cloneWithRows(subredditsArr),
+      isLoading: false,
+      hasNoResults: !subredditsArr.length
+    }))
   }
 
   renderRow(rowData) {
