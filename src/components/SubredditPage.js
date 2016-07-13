@@ -12,8 +12,7 @@ let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class SubredditPage extends Component {
   static propTypes = { 
-    id: React.PropTypes.string,
-    display_name: React.PropTypes.string
+    subredditData: React.PropTypes.object
   };
 
   constructor(props) {
@@ -38,7 +37,7 @@ export default class SubredditPage extends Component {
   }
 
   fetchPosts() {
-    return fetch('https://www.reddit.com/r/' + this.props.display_name + '.json')
+    return fetch('https://www.reddit.com/r/' + this.props.subredditData.display_name + '.json')
       .then((response) => response.json())
       .then((responseJson) => {
         let postsArr = [];

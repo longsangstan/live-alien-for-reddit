@@ -74,13 +74,8 @@ export default class DiscoverPage extends Component {
         }
 
         for (var i = 0; i < children.length; i++) {
-          let subredditInfo = {};
-          subredditInfo['id'] = children[i].data.id;
-          subredditInfo['display_name'] = children[i].data.display_name;
-          subredditInfo['public_description'] = children[i].data.public_description;
-          subredditInfo['icon_img'] = children[i].data.icon_img;
-
-          subredditsArr.push(subredditInfo);
+          let subredditData = children[i].data;
+          subredditsArr.push(subredditData);
         }
         
         this.setState({
@@ -96,10 +91,7 @@ export default class DiscoverPage extends Component {
   renderRow(rowData) {
     return (
       <SubredditCard 
-        id={rowData.id} 
-        display_name={rowData.display_name}
-        public_description={rowData.public_description}
-        icon_img={rowData.icon_img}
+        subredditData={rowData}
         navigator={this.props.navigator}
       />
     )

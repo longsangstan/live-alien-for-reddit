@@ -23,8 +23,7 @@ class SubredditScreen extends Component {
   };
 
   static propTypes = { 
-    id: React.PropTypes.string,
-    display_name: React.PropTypes.string
+    subredditData: React.PropTypes.object
   };
 
   constructor(props) {
@@ -33,7 +32,7 @@ class SubredditScreen extends Component {
 
   render() {
     return (
-      <SubredditPage id={this.props.id} display_name={this.props.display_name}/>
+      <SubredditPage subredditData={this.props.subredditData}/>
     );
   }
 

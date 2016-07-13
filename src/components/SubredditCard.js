@@ -9,10 +9,7 @@ import {
 
 export default class SubredditCard extends Component {
   static propTypes = {
-    id: React.PropTypes.string,
-    display_name: React.PropTypes.string,
-    public_description: React.PropTypes.string,
-    icon_img: React.PropTypes.string,
+    subredditData: React.PropTypes.object,
     navigator: React.PropTypes.object
   };
 
@@ -22,19 +19,18 @@ export default class SubredditCard extends Component {
 
   onPress() {
     this.props.navigator.push({
-      title: '/r/' + this.props.display_name,
+      title: '/r/' + this.props.subredditData.display_name,
       screen: "example.SubredditScreen",
       passProps: {
-        id: this.props.id,
-        display_name: this.props.display_name
+        subredditData: this.props.subredditData
       }
     });
   }
 
   render() {
-    let public_description = (this.props.public_description).replace(/(?:\r\n|\r|\n)/g, ' ');
-    let url = '/r/' + this.props.display_name;
-    let icon_img = this.props.icon_img || 'http://rawapk.com/wp-content/uploads/2016/04/Reddit-The-Official-App-Icon.png';
+    let public_description = (this.props.subredditData.public_description).replace(/(?:\r\n|\r|\n)/g, ' ');
+    let url = '/r/' + this.props.subredditData.display_name;
+    let icon_img = this.props.subredditData.icon_img || 'http://rawapk.com/wp-content/uploads/2016/04/Reddit-The-Official-App-Icon.png';
 
     return (
       <TouchableHighlight onPress={() => this.onPress()} style={styles.cardContainer}>
