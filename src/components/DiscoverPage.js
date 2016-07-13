@@ -47,12 +47,15 @@ export default class DiscoverPage extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+
+    this.renderRow = this.renderRow.bind(this);
   }
 
   onCancelButtonPress() {
     this.setState(initialState);
   }
 
+  // fetch -> parse -> setState
   onSearchButtonPress(searchBar) {
     this.setState({isLoading: true});
 
@@ -61,7 +64,7 @@ export default class DiscoverPage extends Component {
     fetch('https://www.reddit.com/search.json?q=' + searchBar + '&type=sr')
       .then((response) => response.json())
       .then((responseJson) => {
-        // parse
+        // parse data
         let children = responseJson.data.children;
 
         if(children.length === 0) {
@@ -80,7 +83,6 @@ export default class DiscoverPage extends Component {
           subredditsArr.push(subredditInfo);
         }
         
-        // set setstate
         this.setState({
           dataSource: ds.cloneWithRows(subredditsArr),
           isLoading: false
@@ -98,6 +100,7 @@ export default class DiscoverPage extends Component {
         display_name={rowData.display_name}
         public_description={rowData.public_description}
         icon_img={rowData.icon_img}
+        navigator={this.props.navigator}
       />
     )
   }
@@ -111,7 +114,7 @@ export default class DiscoverPage extends Component {
                        </View>
     } else {
       subredditsList = <ListView
-                          scrollsToTop={false}
+                          scrollsToTop={false} // prevent conflict with scroll view
                           dataSource={this.state.dataSource}
                           renderRow={this.renderRow}
                         />

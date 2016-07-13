@@ -6,13 +6,16 @@ import {
   StyleSheet,
   Text
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class SubredditCard extends Component {
+// for timestamp
+import moment from 'moment';
+import CustomRelativeTime from '../config/CustomRelativeTime';
+moment.updateLocale('en', CustomRelativeTime);
+
+export default class PostCard extends Component {
   static propTypes = {
-    id: React.PropTypes.string,
-    display_name: React.PropTypes.string,
-    public_description: React.PropTypes.string,
-    icon_img: React.PropTypes.string,
+    postData: React.PropTypes.object, // reference: https://github.com/reddit/reddit/wiki/JSON#link-implements-votable--created
     navigator: React.PropTypes.object
   };
 
@@ -21,32 +24,26 @@ export default class SubredditCard extends Component {
   }
 
   onPress() {
-    this.props.navigator.push({
-      title: '/r/' + this.props.display_name,
-      screen: "example.SubredditScreen",
-      passProps: {
-        id: this.props.id,
-        display_name: this.props.display_name
-      }
-    });
+
   }
 
   render() {
-    let public_description = (this.props.public_description).replace(/(?:\r\n|\r|\n)/g, ' ');
-    let url = '/r/' + this.props.display_name;
-    let icon_img = this.props.icon_img || 'http://rawapk.com/wp-content/uploads/2016/04/Reddit-The-Official-App-Icon.png';
-
     return (
       <TouchableHighlight onPress={() => this.onPress()} style={styles.cardContainer}>
         <View>
           <View style={styles.row}>
-            <Image style={styles.thumb} source={{uri: icon_img}} />
+
             <View style={styles.textContainer}>
-              <Text style={styles.title}>
-                {url}
+              <Text style={{color: 'gray'}}>
+                {moment().from(this.props.postData.created_utc*1000, true)} &bull; {this.props.postData.domain} &bull; {this.props.postData.author}
               </Text>
-              <Text style={styles.description}>
-                {public_description}
+
+              <Text style={styles.title}>
+                {this.props.postData.title}
+              </Text>
+
+              <Text style={{color: 'gray'}}>
+                {this.props.postData.score + ' points'} &bull; {this.props.postData.num_comments + ' comments'}
               </Text>
             </View>
           </View>
@@ -63,14 +60,10 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#FFFFFF',
   },
-  thumb: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
   textContainer: {
     flex: 1,
-    marginLeft: 15
+    marginLeft: 10,
+    marginRight: 10
   },
   title: {
     fontWeight: 'bold'

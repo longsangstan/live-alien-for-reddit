@@ -9,19 +9,22 @@ import {
   Alert
 } from 'react-native';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Ionicons';
-import DiscoverPage from '../components/DiscoverPage';
-
+import SubredditPage from '../components/SubredditPage';
 
 // this is a traditional React component connected to the redux store
-class DiscoverScreen extends Component {
+class SubredditScreen extends Component {
   static navigatorStyle = {
     navBarTextColor: '#d24919',
-    navBarBackgroundColor: '#ffffff',
     navBarButtonColor: '#d24919',
+    navBarBackgroundColor: '#ffffff',
     drawUnderNavBar: true,
     drawUnderTabBar: true,
     navBarTranslucent: true
+  };
+
+  static propTypes = { 
+    id: React.PropTypes.string,
+    display_name: React.PropTypes.string
   };
 
   constructor(props) {
@@ -30,7 +33,7 @@ class DiscoverScreen extends Component {
 
   render() {
     return (
-      <DiscoverPage navigator={this.props.navigator} />
+      <SubredditPage id={this.props.id} display_name={this.props.display_name}/>
     );
   }
 
@@ -43,4 +46,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(DiscoverScreen);
+export default connect(mapStateToProps)(SubredditScreen);
