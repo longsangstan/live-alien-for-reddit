@@ -14,7 +14,7 @@ import SearchBar from 'react-native-search-bar';
 
 
 // TODO - move to config
-let presetSubreddits = [
+let PresetSubreddits = [
   {
     "id": "2qi58",
     "display_name": "soccer",
@@ -32,13 +32,19 @@ let presetSubreddits = [
     "display_name": "formula1",
     "public_description": "Formula 1 news and stories",
     "icon_img": ""
+  },
+  {
+    "id": "2qj0l",
+    "display_name": "Boxing",
+    "public_description": "",
+    "icon_img": ""
   }
 ]
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 let initialState = {
   showsCancelButton: false,
-  dataSource: ds.cloneWithRows(presetSubreddits),
+  dataSource: ds.cloneWithRows(PresetSubreddits),
   isLoading: false,
   hasNoResults: false,
 }
