@@ -40,7 +40,7 @@ export default class PostCard extends Component {
           <View style={styles.row}>
 
             <View style={styles.textContainer}>
-              <Text style={{color: 'gray'}}>
+              <Text style={{color: '#d24919'}}>
                 {moment().from(this.props.postData.created_utc*1000, true)} &bull; {this.props.postData.domain} &bull; {this.props.postData.author}
               </Text>
 
@@ -73,9 +73,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold'
-  },
-  description: {
-    color: 'gray'
   },
   cardContainer: {
     margin: 1,

@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   title: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   description: {
     color: 'gray'

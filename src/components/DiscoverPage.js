@@ -75,7 +75,7 @@ export default class DiscoverPage extends Component {
 
   renderRow(rowData) {
     return (
-      <SubredditCard 
+      <SubredditCard
         subredditData={rowData}
         navigator={this.props.navigator}
       />
@@ -104,10 +104,12 @@ export default class DiscoverPage extends Component {
           <SearchBar
             ref='searchBar'
             placeholder='Subreddits'
+            tintColor={'#d24919'}
+            textColor={'#d24919'}
             onSearchButtonPress={(searchBar) => this.onSearchButtonPress(searchBar)}
             onCancelButtonPress={() => this.onCancelButtonPress()}
             onFocus={() => this.setState({showsCancelButton: true})}
-            showsCancelButton={this.state.showsCancelButton} 
+            showsCancelButton={this.state.showsCancelButton}
             style={styles.searchBar}
           />
           {subredditsList}

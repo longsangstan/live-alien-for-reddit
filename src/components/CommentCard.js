@@ -16,13 +16,21 @@ moment.updateLocale('en', CustomRelativeTime);
 export default class CommentCard extends Component {
   static propTypes = {
     commentData: React.PropTypes.object,
+    nestingLevel: React.PropTypes.number,
   };
+
+  static defaultProps = {
+    nestingLevel: 0,
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       isCollapsed: false
     }
+
+    this.renderReplies = this.renderReplies.bind(this);
+    this.renderReply = this.renderReply.bind(this);
   }
 
   onArrowPress() {
@@ -31,25 +39,47 @@ export default class CommentCard extends Component {
     })
   }
 
+  renderReplies() {
+    let repliesChildrenArr = this.props.commentData.replies.data.children;
+    return (
+      <View>
+        {repliesChildrenArr.map(this.renderReply)}
+      </View>
+    )
+  }
+
+  renderReply(child) {
+    return <CommentCard commentData={child.data} key={child.data.id} nestingLevel={this.props.nestingLevel + 1}/>;
+  }
+
   render() {
+    console.log('nestingLevel: ' + this.props.nestingLevel);
     let commentBody = this.state.isCollapsed ? null : <Text>{this.props.commentData.body}</Text>;
     let arrow = this.state.isCollapsed ? 'ios-arrow-forward' : 'ios-arrow-down';
 
+    let cardContainerStyle = {
+      marginLeft: this.props.nestingLevel * 10,
+      margin: 1,
+      borderLeftColor: '#d24919',
+      borderLeftWidth: this.props.nestingLevel ? 1 : 0,
+    }
+
     return (
-      <TouchableHighlight style={styles.cardContainer}>
         <View>
-          <View style={styles.row}>
+          <View style={cardContainerStyle}>
+            <View style={styles.row}>
 
-            <View style={styles.textContainer}>
-              <Text style={{color: 'gray'}}>
-                <Icon name={arrow} size={16} color="#d24919" onPress={() => this.onArrowPress()}/> {moment().from(this.props.commentData.created_utc*1000, true)} &bull; {this.props.commentData.author} &bull; {this.props.commentData.score}
-              </Text>
+              <View style={styles.textContainer}>
+                <Text style={{color: '#d24919'}}>
+                  <Icon name={arrow} size={16} color="#d24919" onPress={() => this.onArrowPress()}/> {moment().from(this.props.commentData.created_utc*1000, true)} &bull; {this.props.commentData.author} &bull; {this.props.commentData.score}
+                </Text>
 
-              {commentBody}
+                {commentBody}
+              </View>
             </View>
           </View>
+          {this.props.commentData.replies && !this.state.isCollapsed ? this.renderReplies() : null}
         </View>
-      </TouchableHighlight>
     );
   }
 }
