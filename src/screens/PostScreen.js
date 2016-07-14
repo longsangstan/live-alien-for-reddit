@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {
   Text,
   Image,
@@ -9,21 +9,22 @@ import {
   Alert
 } from 'react-native';
 import { connect } from 'react-redux';
-import SubredditPage from '../components/SubredditPage';
+import PostPage from '../components/PostPage';
 
 // this is a traditional React component connected to the redux store
-class SubredditScreen extends Component {
+class PostScreen extends Component {
   static navigatorStyle = {
     navBarTextColor: '#d24919',
     navBarButtonColor: '#d24919',
     navBarBackgroundColor: '#ffffff',
     drawUnderNavBar: true,
     drawUnderTabBar: true,
-    navBarTranslucent: true
+    navBarTranslucent: true,
+    tabBarHidden: true
   };
 
   static propTypes = { 
-    subredditData: React.PropTypes.object
+    postData: React.PropTypes.object
   };
 
   constructor(props) {
@@ -32,7 +33,8 @@ class SubredditScreen extends Component {
 
   render() {
     return (
-      <SubredditPage subredditData={this.props.subredditData} navigator={this.props.navigator}/>
+      <PostPage postData={this.props.postData}/>
+      //<Text>post screen!</Text>
     );
   }
 
@@ -45,4 +47,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SubredditScreen);
+export default connect(mapStateToProps)(PostScreen);

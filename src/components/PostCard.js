@@ -24,7 +24,13 @@ export default class PostCard extends Component {
   }
 
   onPress() {
-
+    this.props.navigator.push({
+      title: this.props.postData.title,
+      screen: "example.PostScreen",
+      passProps: {
+        postData: this.props.postData
+      }
+    });
   }
 
   render() {

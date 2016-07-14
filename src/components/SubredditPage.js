@@ -13,7 +13,8 @@ let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class SubredditPage extends Component {
   static propTypes = { 
-    subredditData: React.PropTypes.object
+    subredditData: React.PropTypes.object,
+    navigator: React.PropTypes.object
   };
 
   constructor(props) {
