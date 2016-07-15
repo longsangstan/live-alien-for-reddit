@@ -70,7 +70,7 @@ export default class CommentCard extends Component {
 
               <View style={styles.textContainer}>
                 <Text style={{color: '#d24919'}}>
-                  <Icon name={arrow} size={16} color="#d24919" onPress={() => this.onArrowPress()}/> {moment().from(this.props.commentData.created_utc*1000, true)} &bull; {this.props.commentData.author} &bull; {this.props.commentData.score}
+                  <Icon name={arrow} size={16} color="#d24919" onPress={() => this.onArrowPress()}/> {moment().from(this.props.commentData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.commentData.author}&nbsp;&bull;&nbsp;{this.props.commentData.score}
                 </Text>
 
                 {commentBody}

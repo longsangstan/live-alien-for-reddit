@@ -41,7 +41,7 @@ export default class PostCard extends Component {
 
             <View style={styles.textContainer}>
               <Text style={{color: '#d24919'}}>
-                {moment().from(this.props.postData.created_utc*1000, true)} &bull; {this.props.postData.domain} &bull; {this.props.postData.author}
+                {moment().from(this.props.postData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.postData.domain}&nbsp;&bull;&nbsp;{this.props.postData.author}
               </Text>
 
               <Text style={styles.title}>
