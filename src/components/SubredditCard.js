@@ -30,13 +30,15 @@ export default class SubredditCard extends Component {
   render() {
     let public_description = (this.props.subredditData.public_description).replace(/(?:\r\n|\r|\n)/g, ' ');
     let url = '/r/' + this.props.subredditData.display_name;
-    let icon_img = this.props.subredditData.icon_img || 'http://rawapk.com/wp-content/uploads/2016/04/Reddit-The-Official-App-Icon.png';
+    let iconSource = this.props.subredditData.icon_img ? 
+                     {uri: this.props.subredditData.icon_img} :
+                     require('../../img/orange_snoo.png');
 
     return (
       <TouchableHighlight onPress={() => this.onPress()} style={styles.cardContainer}>
         <View>
           <View style={styles.row}>
-            <Image style={styles.thumb} source={{uri: icon_img}} />
+            <Image style={styles.thumb} source={iconSource} />
             <View style={styles.textContainer}>
               <Text style={styles.title}>
                 {url}
