@@ -54,11 +54,12 @@ export default class DiscoverPage extends Component {
           let subredditData = children[i].data;
           subredditsArr.push(subredditData);
         }
-        
+
         return subredditsArr;
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
+        return [];
       });
   }
 
@@ -83,7 +84,6 @@ export default class DiscoverPage extends Component {
   }
 
   render() {
-    // TODO - save img
     let subredditsList;
     if(this.state.isLoading) {
       subredditsList = <LoadingIcon />
@@ -95,7 +95,7 @@ export default class DiscoverPage extends Component {
                         />
     }
     if(this.state.hasNoResults) {
-      subredditsList = <ErrorIcon errorMsg={'Can\'t find anything:('}/>
+      subredditsList = <ErrorIcon errorMsg={'Try again:('}/>
     }
 
     return (     

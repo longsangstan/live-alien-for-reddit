@@ -66,7 +66,8 @@ export default class PostPage extends Component {
         return commentsArr;
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
+        return [];
       });
   }
 
@@ -84,7 +85,7 @@ export default class PostPage extends Component {
     if(this.state.isLoading) {
       commentsList = <View style={{marginTop: 65}}>
                       <LoadingIcon />
-                  </View>
+                     </View>
     } else {
       commentsList = <ListView
                       style={styles.scrollViewContainer}

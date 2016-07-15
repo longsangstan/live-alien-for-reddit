@@ -53,7 +53,8 @@ export default class SubredditPage extends Component {
         return postsArr;
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
+        return [];
       });
   }
 
