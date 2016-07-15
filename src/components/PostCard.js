@@ -49,7 +49,7 @@ export default class PostCard extends Component {
               </Text>
 
               <Text style={{color: 'gray'}}>
-                {this.props.postData.score + ' points'} &bull; {this.props.postData.num_comments + ' comments'}
+                {this.props.postData.score + ' points'}&nbsp;&bull;&nbsp;{this.props.postData.num_comments + ' comments'}
               </Text>
             </View>
           </View>
