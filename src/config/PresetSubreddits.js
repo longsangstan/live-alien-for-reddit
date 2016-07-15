@@ -22,5 +22,11 @@ export default PresetSubreddits = [
     "display_name": "Boxing",
     "public_description": "",
     "icon_img": ""
-  }
+  },
+  {
+    "id": "2qh13",
+    "display_name": "worldnews",
+    "public_description": "A place for major news from around the world, excluding US-internal news.\n",
+    "icon_img": ""
+  },
 ];

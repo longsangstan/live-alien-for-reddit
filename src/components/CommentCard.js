@@ -53,7 +53,6 @@ export default class CommentCard extends Component {
   }
 
   render() {
-    console.log('nestingLevel: ' + this.props.nestingLevel);
     let commentBody = this.state.isCollapsed ? null : <Text>{this.props.commentData.body}</Text>;
     let arrow = this.state.isCollapsed ? 'ios-arrow-forward' : 'ios-arrow-down';
 

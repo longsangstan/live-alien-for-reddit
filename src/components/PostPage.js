@@ -12,6 +12,9 @@ import LoadingIcon from './LoadingIcon';
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
+let commentsFetcher;
+const fetchInterval = 2500; // **to confirm the rate limt is 30 or 60 per minute
+
 export default class PostPage extends Component {
   static propTypes = { 
     postData: React.PropTypes.object,
@@ -32,18 +35,21 @@ export default class PostPage extends Component {
   componentWillMount() {
     this.setState({isLoading: true});
 
-    //setInterval(()=>{ 
+    commentsFetcher = setInterval(() => {
+      console.log('fetching comments for: ' + this.props.postData.title);
       this.fetchComments()
       .then((commentsArr) => this.setState({
         dataSource: ds.cloneWithRows(commentsArr),
         isLoading: false,
       }));
-    //}, 2000);
-    
+    }, fetchInterval);
+  }
+
+  componentWillUnmount() {
+    clearInterval(commentsFetcher);
   }
 
   fetchComments() {
-    
     return fetch('https://www.reddit.com/r/' + this.props.postData.subreddit + '/comments/' + this.props.postData.id + '/.json?sort=new')
       .then((response) => response.json())
       .then((responseJson) => {
@@ -56,8 +62,6 @@ export default class PostPage extends Component {
             commentsArr.push(commentData);
           }
         }
-
-        console.log(commentsArr);
   
         return commentsArr;
       })
@@ -67,10 +71,10 @@ export default class PostPage extends Component {
   }
 
   renderRow(rowData) {
-    
     return (
       <CommentCard 
         commentData={rowData}
+        key={rowData.id}
       />
     )
   }
