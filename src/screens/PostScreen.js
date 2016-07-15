@@ -33,7 +33,7 @@ class PostScreen extends Component {
 
   render() {
     return (
-      <PostPage postData={this.props.postData}/>
+      <PostPage postData={this.props.postData} navigator={this.props.navigator}/>
       //<Text>post screen!</Text>
     );
   }

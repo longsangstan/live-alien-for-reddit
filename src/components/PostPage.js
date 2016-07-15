@@ -30,6 +30,7 @@ export default class PostPage extends Component {
 
     this.fetchComments = this.fetchComments.bind(this);
     this.renderRow = this.renderRow.bind(this);
+    
   }
 
   componentWillMount() {
