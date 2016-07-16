@@ -4,9 +4,11 @@ import {
   Image,
   TouchableHighlight,
   StyleSheet,
+  Linking,
   Text
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Hyperlink from 'react-native-hyperlink';
 
 // for timestamp
 import moment from 'moment';
@@ -53,7 +55,15 @@ export default class CommentCard extends Component {
   }
 
   render() {
-    let commentBody = this.state.isCollapsed ? null : <Text>{this.props.commentData.body}</Text>;
+    let commentBody = this.state.isCollapsed ? 
+                      null : 
+                      <Hyperlink 
+                       onPress={(url) => Linking.openURL(url).catch(err => console.error('An error occurred', err))} 
+                       linkStyle={{color:'#2980b9'}}
+                      >
+                        <Text>{this.props.commentData.body}</Text>
+                      </Hyperlink>;
+
     let arrow = this.state.isCollapsed ? 'ios-arrow-forward' : 'ios-arrow-down';
 
     let cardContainerStyle = {
@@ -69,8 +79,8 @@ export default class CommentCard extends Component {
             <View style={styles.row}>
 
               <View style={styles.textContainer}>
-                <Text style={{color: '#d24919'}}>
-                  <Icon name={arrow} size={16} color="#d24919" onPress={() => this.onArrowPress()}/> {moment().from(this.props.commentData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.commentData.author}&nbsp;&bull;&nbsp;{this.props.commentData.score}
+                <Text style={{color: '#d24919'}} onPress={() => this.onArrowPress()}>
+                  <Icon name={arrow} size={16} color="#d24919"/> {moment().from(this.props.commentData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.commentData.author}&nbsp;&bull;&nbsp;{this.props.commentData.score}
                 </Text>
 
                 {commentBody}
