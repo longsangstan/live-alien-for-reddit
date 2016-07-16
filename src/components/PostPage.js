@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import CommentCard from './CommentCard';
 import LoadingIcon from './LoadingIcon';
+import ErrorIcon from './ErrorIcon';
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -26,6 +27,7 @@ export default class PostPage extends Component {
     this.state = {
       dataSource: ds.cloneWithRows([]),
       isLoading: true,
+      hasNoComments: false,
     }
 
     this.fetchComments = this.fetchComments.bind(this);
@@ -42,6 +44,7 @@ export default class PostPage extends Component {
       .then((commentsArr) => this.setState({
         dataSource: ds.cloneWithRows(commentsArr),
         isLoading: false,
+        hasNoComments: !commentsArr.length,
       }));
     }, fetchInterval);
   }
@@ -93,6 +96,9 @@ export default class PostPage extends Component {
                       dataSource={this.state.dataSource}
                       renderRow={this.renderRow}
                     />
+    }
+    if(this.state.hasNoComments) {
+      commentsList = <View style={{marginTop: 65}}><ErrorIcon errorMsg={'No comments:( Retrying...'}/></View>
     }
 
     return (     
