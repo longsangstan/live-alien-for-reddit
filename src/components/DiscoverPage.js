@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     marginTop: 65,
-    marginBottom: 50
+    //marginBottom: 50
   },
   searchBar: {
     height: 40
