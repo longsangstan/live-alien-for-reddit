@@ -52,6 +52,7 @@ export default class DiscoverPage extends Component {
         let children = responseJson.data.children;
         for (var i = 0; i < children.length; i++) {
           let subredditData = children[i].data;
+          if(subredditData.over18 === true) continue;
           subredditsArr.push(subredditData);
         }
 

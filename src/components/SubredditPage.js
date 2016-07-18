@@ -47,6 +47,7 @@ export default class SubredditPage extends Component {
         let children = responseJson.data.children;
         for (var i = 0; i < children.length; i++) {
           let postData = children[i].data;
+          if(postData.over_18 === true) continue;
           postsArr.push(postData);
         }
   
