@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Hyperlink from 'react-native-hyperlink';
+import showReportAlert from './ReportAlert';
 
 // for timestamp
 import moment from 'moment';
@@ -43,17 +44,7 @@ export default class CommentCard extends Component {
   }
 
   onReportButtonPress() {
-    AlertIOS.prompt(
-      'What\'s wrong with it?',
-      null,
-      [
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'Report', onPress: text => {
-          AlertIOS.alert(null,'Thank you. We will report it to the mods of this subreddit.');
-        }},
-      ],
-      'plain-text'
-    );
+    showReportAlert();
   }
 
   renderReplies() {
