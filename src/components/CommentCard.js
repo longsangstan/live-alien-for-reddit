@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
   View,
   Image,
-  TouchableHighlight,
+  AlertIOS,
+  TouchableOpacity,
   StyleSheet,
   Linking,
   Text
@@ -41,6 +42,20 @@ export default class CommentCard extends Component {
     })
   }
 
+  onReportButtonPress() {
+    AlertIOS.prompt(
+      'What\'s wrong with it?',
+      null,
+      [
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Report', onPress: text => {
+          AlertIOS.alert(null,'Thank you. We will report it to the mods of this subreddit.');
+        }},
+      ],
+      'plain-text'
+    );
+  }
+
   renderReplies() {
     let repliesChildrenArr = this.props.commentData.replies.data.children;
     return (
@@ -55,9 +70,7 @@ export default class CommentCard extends Component {
   }
 
   render() {
-    let commentBody = this.state.isCollapsed ? 
-                      null : 
-                      <Hyperlink 
+    let commentBody = <Hyperlink 
                        onPress={(url) => Linking.openURL(url).catch(err => console.error('An error occurred', err))} 
                        linkStyle={{color:'#2980b9'}}
                       >
@@ -73,6 +86,12 @@ export default class CommentCard extends Component {
       borderLeftWidth: this.props.nestingLevel ? 1 : 0,
     }
 
+    let reportButton = <View style={{alignItems: 'flex-end'}}>
+                          <TouchableOpacity onPress={() => this.onReportButtonPress()}>
+                            <Text style={{color: 'gray', fontSize: 12}}>&nbsp;Report</Text>
+                          </TouchableOpacity>
+                       </View>
+
     return (
         <View>
           <View style={cardContainerStyle}>
@@ -83,7 +102,8 @@ export default class CommentCard extends Component {
                   <Icon name={arrow} size={16} color="#d24919"/> {moment().from(this.props.commentData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.commentData.author}&nbsp;&bull;&nbsp;{this.props.commentData.score}
                 </Text>
 
-                {commentBody}
+                {this.state.isCollapsed ? null : commentBody}
+                {this.state.isCollapsed ? null : reportButton}
               </View>
             </View>
           </View>
