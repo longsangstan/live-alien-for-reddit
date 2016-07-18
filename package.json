@@ -13,6 +13,7 @@
     "moment": "^2.14.1",
     "react": "15.0.2",
     "react-native": "0.26.2",
+    "react-native-admob": "^1.1.2",
     "react-native-hyperlink": "0.0.5",
     "react-native-navigation": "latest",
     "react-native-search-bar": "^2.11.0",

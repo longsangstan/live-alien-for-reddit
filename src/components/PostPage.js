@@ -12,6 +12,7 @@ import CommentCard from './CommentCard';
 import LoadingIcon from './LoadingIcon';
 import ErrorIcon from './ErrorIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { AdMobInterstitial } from 'react-native-admob';
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -34,6 +35,7 @@ export default class PostPage extends Component {
       hasNoComments: false,
     }
 
+    this.prepareAd = this.prepareAd.bind(this);
     this.fetchComments = this.fetchComments.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.populateIcons = this.populateIcons.bind(this);
@@ -49,7 +51,17 @@ export default class PostPage extends Component {
     }
   }
 
+  prepareAd() {
+    AdMobInterstitial.setAdUnitID('ca-app-pub-4870542892593937/9782471201');
+    AdMobInterstitial.setTestDeviceID('EMULATOR');
+    AdMobInterstitial.requestAd((error) => error && console.log(error));
+    AdMobInterstitial.addEventListener('interstitialDidLoad',
+      () => AdMobInterstitial.showAd((error) => error && console.log(error)));
+  }
+
   componentWillMount() {
+    this.prepareAd();
+
     this.setState({isLoading: true});
 
     commentsFetcher = setInterval(() => {
