@@ -29,4 +29,10 @@ export default PresetSubreddits = [
     "public_description": "A place for major news from around the world, excluding US-internal news.\n",
     "icon_img": ""
   },
+  {
+    "id": "3fizy",
+    "display_name": "LiveAlien",
+    "public_description": "Live reddit comment stream for mobile.",
+    "icon_img": "http://b.thumbs.redditmedia.com/7HN_482LFPHiU465unJCydVkXe3gGWjcW-PVcDeaDfw.png",
+  }
 ];
