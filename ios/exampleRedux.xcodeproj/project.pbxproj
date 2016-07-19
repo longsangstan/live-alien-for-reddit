@@ -29,6 +29,7 @@
 		8651D0776EC74D95AE442AAF /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F649302D9A1F4703AAEF5849 /* FontAwesome.ttf */; };
 		9E26126D3117416AA8E6390B /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1273F152C076463A9B21150A /* Foundation.ttf */; };
 		CCCF23211C9C238500455574 /* libReactNativeControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCCF23201C9C236100455574 /* libReactNativeControllers.a */; };
+		CE35EFCE1D3DDD39009DEF73 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		CE8690381D3C84B100575961 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8690371D3C84B100575961 /* GoogleMobileAds.framework */; };
 		DC543A30B57F4947A9C4E845 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC62DC11A22F4CEDB45BBD15 /* Ionicons.ttf */; };
 		EBC6AB3D18B542E08FD01DA8 /* libRNAdMobManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE4E13D5DB845E3B839CA31 /* libRNAdMobManager.a */; };
@@ -190,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE35EFCE1D3DDD39009DEF73 /* libReact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +743,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -758,6 +761,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/exampleRedux.app/exampleRedux";
 			};
@@ -768,6 +772,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -781,6 +786,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/exampleRedux.app/exampleRedux";
 			};
@@ -823,6 +829,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
