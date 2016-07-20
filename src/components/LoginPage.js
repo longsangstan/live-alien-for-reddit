@@ -16,6 +16,7 @@ export default class LoginPage extends Component {
   }
 
   connectWithInstagram() {
+    /*
     // TODO: break it down
     Linking.openURL('https://api.instagram.com/oauth/authorize/?client_id=ff389570a00d4956bb80c81b052ac74d&redirect_uri=igmagictools://foo&response_type=token');
 
@@ -29,6 +30,7 @@ export default class LoginPage extends Component {
       Linking.removeEventListener('url', handleUrl)
     }
     console.log('connect with ig');
+    */
   }
 
   render() {

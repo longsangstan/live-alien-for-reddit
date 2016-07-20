@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
-  Text
+  Text,
+  View
 } from 'react-native';
 
 export default class ExampleComponent extends Component {
@@ -9,7 +10,24 @@ export default class ExampleComponent extends Component {
   }
   render() {
     return (
-      <Text>I am a regular non-redux aware component</Text>
+      <View>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+        <Text>I am a regular non-redux aware component</Text>
+      </View>
     );
   }
 }
