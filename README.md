@@ -6,19 +6,19 @@ A reddit client built on top of react native.
 App
 -DiscoverScreen
     -DiscoverPage
-      -SubredditCard
+        -SubredditCard
         -ErrorIcon
         -LoadingIcon
 -SubredditScreen
-  -SubredditPage
-      -PostCard
-          -ReportAlert
+    -SubredditPage
+        -PostCard
+            -ReportAlert
         -ErrorIcon
         -LoadingIcon
 -PostScreen
-  -PostPage
-      -CommentCard
-          -ReportAlert
+    -PostPage
+        -CommentCard
+            -ReportAlert
         -ErrorIcon
         -LoadingIcon
 ```
