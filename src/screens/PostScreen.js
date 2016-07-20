@@ -1,13 +1,4 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  Image,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-  Alert
-} from 'react-native';
 import { connect } from 'react-redux';
 import PostPage from '../components/PostPage';
 
@@ -34,7 +25,6 @@ class PostScreen extends Component {
   render() {
     return (
       <PostPage postData={this.props.postData} navigator={this.props.navigator} shouldShowAd={this.props.ad.shouldShowAd}/>
-      //<Text>post screen!</Text>
     );
   }
 

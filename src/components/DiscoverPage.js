@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import {
-  Text,
-  View,
   ScrollView,
   ListView,
   Image,
   StyleSheet,
-  TouchableWithoutFeedback,
-  Linking
 } from 'react-native';
 import SubredditCard from './SubredditCard';
 import SearchBar from 'react-native-search-bar';

@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {
   View,
-  Image,
-  TouchableHighlight,
   TouchableOpacity,
   ActionSheetIOS,
-  AlertIOS,
   StyleSheet,
   Text
 } from 'react-native';

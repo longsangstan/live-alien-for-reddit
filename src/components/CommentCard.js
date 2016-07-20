@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {
   View,
-  Image,
-  AlertIOS,
   TouchableOpacity,
   StyleSheet,
   Linking,

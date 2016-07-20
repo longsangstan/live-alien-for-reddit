@@ -1,13 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import {
-  Text,
-  Image,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-  Alert
-} from 'react-native';
 import { connect } from 'react-redux';
 import SubredditPage from '../components/SubredditPage';
 
