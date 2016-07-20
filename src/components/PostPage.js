@@ -24,7 +24,8 @@ const fetchInterval = 2500; // **to confirm the rate limt is 30 or 60 per minute
 export default class PostPage extends Component {
   static propTypes = { 
     postData: React.PropTypes.object,
-    navigator: React.PropTypes.object
+    navigator: React.PropTypes.object,
+    shouldShowAd: React.PropTypes.bool,
   };
 
   constructor(props) {
@@ -60,7 +61,8 @@ export default class PostPage extends Component {
   }
 
   componentWillMount() {
-    this.prepareAd();
+    console.log('should show ad: ' + this.props.shouldShowAd);
+    if(this.props.shouldShowAd)this.prepareAd();
 
     this.setState({isLoading: true});
 

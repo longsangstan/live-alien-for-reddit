@@ -29,6 +29,7 @@ let initialState = {
 export default class DiscoverPage extends Component {
   static propTypes = {
     navigator: React.PropTypes.object,
+    disableAd: React.PropTypes.func,
   };
 
   constructor(props) {
@@ -44,6 +45,8 @@ export default class DiscoverPage extends Component {
   }
 
   fetchSubreddits(query) {
+    if(query === 'Noadpls') this.props.disableAd();
+
     return fetch('https://www.reddit.com/search.json?q=' + query + '&type=sr')
       .then((response) => response.json())
       .then((responseJson) => {

@@ -9,6 +9,8 @@ import {
   Alert
 } from 'react-native';
 import { connect } from 'react-redux';
+import * as adActions from '../reducers/ad/actions';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import DiscoverPage from '../components/DiscoverPage';
 
@@ -26,11 +28,22 @@ class DiscoverScreen extends Component {
 
   constructor(props) {
     super(props);
+
+    this.disableAd = this.disableAd.bind(this);
+  }
+
+  disableAd() {
+    this.props.dispatch(adActions.disableAd());
+    Alert.alert(
+      null,
+      'I hear you. Ad disabled.',
+      null
+    )
   }
 
   render() {
     return (
-      <DiscoverPage navigator={this.props.navigator} />
+      <DiscoverPage navigator={this.props.navigator} disableAd={this.disableAd}/>
     );
   }
 

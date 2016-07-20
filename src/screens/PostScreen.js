@@ -33,7 +33,7 @@ class PostScreen extends Component {
 
   render() {
     return (
-      <PostPage postData={this.props.postData} navigator={this.props.navigator}/>
+      <PostPage postData={this.props.postData} navigator={this.props.navigator} shouldShowAd={this.props.ad.shouldShowAd}/>
       //<Text>post screen!</Text>
     );
   }
@@ -43,7 +43,7 @@ class PostScreen extends Component {
 // which props do we want to inject, given the global state?
 function mapStateToProps(state) {
   return {
-    
+    ad: state.ad
   };
 }
 
