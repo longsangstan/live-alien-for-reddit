@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import PostCard from './PostCard';
 import LoadingIcon from './LoadingIcon';
+import ErrorIcon from './ErrorIcon';
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -23,6 +24,7 @@ export default class SubredditPage extends Component {
       dataSource: ds.cloneWithRows([]),
       isLoading: true,
       refreshing: false,
+      hasNoResults: false
     }
 
     this.fetchPosts = this.fetchPosts.bind(this);
@@ -35,6 +37,7 @@ export default class SubredditPage extends Component {
     .then((postsArr) => this.setState({
       dataSource: ds.cloneWithRows(postsArr),
       isLoading: false,
+      hasNoResults: !postsArr.length
     }));
   }
 
@@ -64,7 +67,8 @@ export default class SubredditPage extends Component {
     this.fetchPosts()
     .then((postsArr) => this.setState({
       dataSource: ds.cloneWithRows(postsArr),
-      refreshing: false
+      refreshing: false,
+      hasNoResults: !postsArr.length
     }));
   }
 
@@ -80,12 +84,9 @@ export default class SubredditPage extends Component {
   render() {
     let postsList;
     if(this.state.isLoading) {
-      postsList = <View style={{marginTop: 65}}>
-                      <LoadingIcon />
-                  </View>
+      postsList = <LoadingIcon />
     } else {
       postsList = <ListView
-                    style={styles.scrollViewContainer}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow}
                     refreshControl={
@@ -96,6 +97,9 @@ export default class SubredditPage extends Component {
                       />
                     }
                   />
+    }
+    if(this.state.hasNoResults) {
+      postsList = <ErrorIcon errorMsg={'Can\'t find anything:( Try again.'}/>
     }
 
     return (     
@@ -111,9 +115,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-  },
-  scrollViewContainer: {
-    marginTop: 65,
-    //marginBottom: 50
+    paddingTop: 65,
   }
 });

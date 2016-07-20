@@ -132,18 +132,15 @@ export default class PostPage extends Component {
   render() {
     let commentsList;
     if(this.state.isLoading) {
-      commentsList = <View style={{marginTop: 65}}>
-                      <LoadingIcon />
-                     </View>
+      commentsList = <LoadingIcon />
     } else {
       commentsList = <ListView
-                      style={styles.scrollViewContainer}
                       dataSource={this.state.dataSource}
                       renderRow={this.renderRow}
                     />
     }
     if(this.state.hasNoComments) {
-      commentsList = <View style={{marginTop: 65}}><ErrorIcon errorMsg={'No comments:( Retrying...'}/></View>
+      commentsList = <ErrorIcon errorMsg={'No comments:( Retrying...'}/>
     }
 
     return (     
@@ -159,10 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
+    paddingTop: 65
   },
-  scrollViewContainer: {
-    marginTop: 65,
-    //marginBottom: 50
-  }
 });
 

@@ -101,7 +101,7 @@ export default class DiscoverPage extends Component {
 
     return (     
       <Image source={require('../../img/background.jpg')} style={styles.container}>
-        <ScrollView style={styles.scrollViewContainer} keyboardDismissMode="on-drag">
+        <ScrollView keyboardDismissMode="on-drag">
           <SearchBar
             ref='searchBar'
             placeholder='Subreddits'
@@ -125,10 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-  },
-  scrollViewContainer: {
-    marginTop: 65,
-    //marginBottom: 50
+    paddingTop: 65
   },
   searchBar: {
     height: 40
