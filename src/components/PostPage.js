@@ -61,7 +61,9 @@ export default class PostPage extends Component {
 
   componentWillMount() {
     console.log('should show ad: ' + this.props.shouldShowAd);
-    if(this.props.shouldShowAd)this.prepareAd();
+    if(this.props.shouldShowAd) {
+      if(Math.floor((Math.random() * 3) + 1) === 1) this.prepareAd(); // 1 in 3 chances
+    }
 
     this.setState({isLoading: true});
 
