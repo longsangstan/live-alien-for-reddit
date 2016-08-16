@@ -105,7 +105,6 @@ export default class DiscoverPage extends Component {
             ref='searchBar'
             placeholder='Subreddits'
             tintColor={'#d24919'}
-            textColor={'#d24919'}
             onSearchButtonPress={(searchBar) => this.onSearchButtonPress(searchBar)}
             onCancelButtonPress={() => this.onCancelButtonPress()}
             onFocus={() => this.setState({showsCancelButton: true})}

@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {
   View,
   Image,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
   Text
 } from 'react-native';
+
+const Device = require('react-native-device');
 
 export default class SubredditCard extends Component {
   static propTypes = {
@@ -35,31 +37,31 @@ export default class SubredditCard extends Component {
                      require('../../img/orange_snoo.png');
 
     return (
-      <TouchableHighlight onPress={() => this.onPress()} style={styles.cardContainer}>
-        <View>
-          <View style={styles.row}>
-            <Image style={styles.thumb} source={iconSource} />
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>
-                {url}
-              </Text>
-              <Text style={styles.description}>
-                {public_description}
-              </Text>
-            </View>
+      <TouchableOpacity onPress={() => this.onPress()} style={styles.cardContainer}>
+        <View style={styles.row}>
+          <Image style={styles.thumb} source={iconSource} />
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>
+              {url}
+            </Text>
+            <Text style={styles.description}>
+              {public_description}
+            </Text>
           </View>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }
+
+let sideMargin = Device.isIpad() ? 80 : 1;
 
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'rgba(0,0,0,0)',
   },
   thumb: {
     width: 50,
@@ -78,5 +80,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     margin: 1,
+    marginLeft: sideMargin,
+    marginRight: sideMargin,
   }
 });

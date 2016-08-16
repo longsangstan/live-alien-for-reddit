@@ -3,12 +3,15 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Linking,
+  processColor,
   Text
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Hyperlink from 'react-native-hyperlink';
 import showReportAlert from './ReportAlert';
+
+const Browser = require('react-native-browser');
+const Device = require('react-native-device');
 
 // for timestamp
 import moment from 'moment';
@@ -60,7 +63,20 @@ export default class CommentCard extends Component {
 
   render() {
     let commentBody = <Hyperlink 
-                       onPress={(url) => Linking.openURL(url).catch(err => console.error('An error occurred', err))} 
+                       onPress={(url) => {
+                          Browser.open(url, {
+                            showUrlWhileLoading: true,
+                            loadingBarTintColor: processColor('#d24919'),
+                            navigationButtonsHidden: false,
+                            showActionButton: true,
+                            showDoneButton: true,
+                            doneButtonTitle: 'Done',
+                            showPageTitles: true,
+                            disableContextualPopupMenu: false,
+                            hideWebViewBoundaries: false,
+                            buttonTintColor: processColor('#d24919')
+                          });
+                       }} 
                        linkStyle={{color:'#2980b9'}}
                       >
                         <Text>{this.props.commentData.body}</Text>
@@ -68,8 +84,11 @@ export default class CommentCard extends Component {
 
     let arrow = this.state.isCollapsed ? 'ios-arrow-forward' : 'ios-arrow-down';
 
+    let sideMargin = Device.isIpad() ? 80 : 1;
+
     let cardContainerStyle = {
-      marginLeft: this.props.nestingLevel * 10,
+      marginLeft: this.props.nestingLevel * 10 + sideMargin,
+      marginRight: sideMargin,
       margin: 1,
       borderLeftColor: '#d24919',
       borderLeftWidth: this.props.nestingLevel ? 1 : 0,
@@ -107,14 +126,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'rgba(0,0,0,0)',
   },
   textContainer: {
     flex: 1,
     marginLeft: 10,
     marginRight: 10
   },
-  cardContainer: {
-    margin: 1,
-  }
 });

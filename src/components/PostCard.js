@@ -9,6 +9,8 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import showReportAlert from './ReportAlert';
 
+const Device = require('react-native-device');
+
 // for timestamp
 import moment from 'moment';
 import CustomRelativeTime from '../config/CustomRelativeTime';
@@ -103,12 +105,14 @@ export default class PostCard extends Component {
   }
 }
 
+let sideMargin = Device.isIpad() ? 80 : 1;
+
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'rgba(0,0,0,0)',
   },
   textContainer: {
     flex: 1,
@@ -120,5 +124,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     margin: 1,
+    marginLeft: sideMargin,
+    marginRight: sideMargin,
   }
 });

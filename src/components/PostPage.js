@@ -3,8 +3,8 @@ import {
   ListView,
   RefreshControl,
   Image,
+  processColor,
   StyleSheet,
-  Linking,
   Text
 } from 'react-native';
 import CommentCard from './CommentCard';
@@ -12,6 +12,8 @@ import LoadingIcon from './LoadingIcon';
 import ErrorIcon from './ErrorIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { AdMobInterstitial } from 'react-native-admob';
+
+const Browser = require('react-native-browser');
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -46,7 +48,18 @@ export default class PostPage extends Component {
   onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
     if (event.type == 'NavBarButtonPress') { // this is the event type for button presses
       if (event.id == 'open') { // this is the same id field from the static navigatorButtons definition
-        Linking.openURL(this.props.postData.url).catch(err => console.error('An error occurred', err));
+        Browser.open(this.props.postData.url, {
+                    showUrlWhileLoading: true,
+                    loadingBarTintColor: processColor('#d24919'),
+                    navigationButtonsHidden: false,
+                    showActionButton: true,
+                    showDoneButton: true,
+                    doneButtonTitle: 'Done',
+                    showPageTitles: true,
+                    disableContextualPopupMenu: false,
+                    hideWebViewBoundaries: false,
+                    buttonTintColor: processColor('#d24919')
+                  });
       }
     }
   }
