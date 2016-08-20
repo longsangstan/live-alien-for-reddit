@@ -62,6 +62,14 @@ export default class CommentCard extends Component {
   }
 
   render() {
+    /* Header - arrow, timestamp, author, score */
+    let arrow = this.state.isCollapsed ? 'ios-arrow-forward' : 'ios-arrow-down';
+
+    let header = <Text style={{color: '#d24919'}} onPress={() => this.onArrowPress()}>
+                   <Icon name={arrow} size={16} color="#d24919"/> {moment().from(this.props.commentData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.commentData.author}&nbsp;&bull;&nbsp;{this.props.commentData.score}
+                 </Text>
+
+    /* Body */
     let commentBody = <Hyperlink 
                        onPress={(url) => {
                           Browser.open(url, {
@@ -80,9 +88,7 @@ export default class CommentCard extends Component {
                        linkStyle={{color:'#2980b9'}}
                       >
                         <Text>{this.props.commentData.body}</Text>
-                      </Hyperlink>;
-
-    let arrow = this.state.isCollapsed ? 'ios-arrow-forward' : 'ios-arrow-down';
+                      </Hyperlink>
 
     let sideMargin = Device.isIpad() ? 80 : 1;
 
@@ -104,12 +110,8 @@ export default class CommentCard extends Component {
         <View>
           <View style={cardContainerStyle}>
             <View style={styles.row}>
-
               <View style={styles.textContainer}>
-                <Text style={{color: '#d24919'}} onPress={() => this.onArrowPress()}>
-                  <Icon name={arrow} size={16} color="#d24919"/> {moment().from(this.props.commentData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.commentData.author}&nbsp;&bull;&nbsp;{this.props.commentData.score}
-                </Text>
-
+                {header}
                 {this.state.isCollapsed ? null : commentBody}
                 {this.state.isCollapsed ? null : reportButton}
               </View>

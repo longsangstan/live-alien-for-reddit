@@ -12,6 +12,7 @@ import LoadingIcon from './LoadingIcon';
 import ErrorIcon from './ErrorIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { AdMobInterstitial } from 'react-native-admob';
+import IdleTimerManager from 'react-native-idle-timer';
 
 const Browser = require('react-native-browser');
 
@@ -36,6 +37,8 @@ export default class PostPage extends Component {
       isLoading: true,
       hasNoComments: false,
     }
+
+    this._isMounted = false;
 
     this.prepareAd = this.prepareAd.bind(this);
     this.fetchComments = this.fetchComments.bind(this);
@@ -73,30 +76,43 @@ export default class PostPage extends Component {
   }
 
   componentWillMount() {
-    console.log('should show ad: ' + this.props.shouldShowAd);
+    this.setState({isLoading: true});
+
+    // Show Ad?
     if(this.props.shouldShowAd) {
       if(Math.floor((Math.random() * 3) + 1) === 1) this.prepareAd(); // 1 in 3 chances
     }
 
-    this.setState({isLoading: true});
-
+    // Start fetching comments
     commentsFetcher = setInterval(() => {
-      console.log('fetching comments for: ' + this.props.postData.title);
       this.fetchComments()
-      .then((commentsArr) => this.setState({
-        dataSource: ds.cloneWithRows(commentsArr),
-        isLoading: false,
-        hasNoComments: !commentsArr.length,
-      }));
+        .then((commentsArr) => {
+          if(this._isMounted) {
+            this.setState({
+              dataSource: ds.cloneWithRows(commentsArr),
+              isLoading: false,
+              hasNoComments: !commentsArr.length,
+            });
+          }
+        });        
     }, fetchInterval);
+
+    // Disable Dimmer
+    IdleTimerManager.setIdleTimerDisabled(true);
   }
 
   componentDidMount() {
+    this._isMounted = true;
+
     this.populateIcons().then(() => this.setNavbarButtons());
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
+
     clearInterval(commentsFetcher);
+
+    IdleTimerManager.setIdleTimerDisabled(false);
   }
 
   populateIcons() {
@@ -146,22 +162,22 @@ export default class PostPage extends Component {
   }
 
   render() {
-    let commentsList;
+    let commentsOrLoading;
     if(this.state.isLoading) {
-      commentsList = <LoadingIcon />
+      commentsOrLoading = <LoadingIcon />
     } else {
-      commentsList = <ListView
+      commentsOrLoading = <ListView
                       dataSource={this.state.dataSource}
                       renderRow={this.renderRow}
                     />
     }
     if(this.state.hasNoComments) {
-      commentsList = <ErrorIcon errorMsg={'No comments:( Retrying...'}/>
+      commentsOrLoading = <ErrorIcon errorMsg={'No comments:( Retrying...'}/>
     }
 
     return (     
       <Image source={require('../../img/background.jpg')} style={styles.container}>
-          {commentsList}
+          {commentsOrLoading}
       </Image>
     );
   }

@@ -120,6 +120,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-idle-timer')
+    compile project(':react-native-dimmer')
     compile project(':react-native-admob')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])

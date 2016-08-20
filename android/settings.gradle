@@ -1,6 +1,10 @@
 rootProject.name = 'exampleRedux'
 
 include ':app'
+include ':react-native-idle-timer'
+project(':react-native-idle-timer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-idle-timer/android')
+include ':react-native-dimmer'
+project(':react-native-dimmer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-dimmer/android')
 include ':react-native-admob'
 project(':react-native-admob').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-admob/android')
 include ':react-native-vector-icons'

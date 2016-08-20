@@ -64,40 +64,41 @@ export default class PostCard extends Component {
   render() {
     if(this.state.isHidden === true) return null;
 
-    return (
-        <View style={styles.cardContainer}>
-          <View style={styles.row}>
+    let header = <TouchableOpacity onPress={() => this.pushToPostPage()}>
+                    <Text style={{color: '#d24919'}}>
+                      {moment().from(this.props.postData.created_utc*1000, true)}
+                      &nbsp;&bull;&nbsp;
+                      {this.props.postData.domain}
+                      &nbsp;&bull;&nbsp;
+                      {this.props.postData.author}
+                    </Text>
+                 </TouchableOpacity>
 
-            <View style={styles.textContainer}>
-              <TouchableOpacity onPress={() => this.pushToPostPage()}>
-                <Text style={{color: '#d24919'}}>
-                  {moment().from(this.props.postData.created_utc*1000, true)}
-                  &nbsp;&bull;&nbsp;
-                  {this.props.postData.domain}
-                  &nbsp;&bull;&nbsp;
-                  {this.props.postData.author}
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => this.pushToPostPage()}>
-                <Text style={styles.title}>
-                  {this.props.postData.title}
-                </Text>
-              </TouchableOpacity>
-
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity onPress={() => this.pushToPostPage()}>
-                  <Text style={{color: 'gray'}}>
-                    {this.props.postData.score + ' points'}&nbsp;&bull;&nbsp;{this.props.postData.num_comments + ' comments'}
+    let title = <TouchableOpacity onPress={() => this.pushToPostPage()}>
+                  <Text style={styles.title}>
+                    {this.props.postData.title}
                   </Text>
                 </TouchableOpacity>
 
-                <View style={{ flex: 1}}></View>
-
-                <TouchableOpacity onPress={() => this.onDotsPress()}>
-                  <Icon name="ios-more" size={20} color="gray" />
-                </TouchableOpacity>
-              </View>
+    let footer = <View style={{flexDirection: 'row'}}>
+                  <TouchableOpacity onPress={() => this.pushToPostPage()}>
+                    <Text style={{color: 'gray'}}>
+                      {this.props.postData.score + ' points'}&nbsp;&bull;&nbsp;{this.props.postData.num_comments + ' comments'}
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={{ flex: 1}}></View>
+                  <TouchableOpacity onPress={() => this.onDotsPress()}>
+                    <Icon name="ios-more" size={20} color="gray" />
+                  </TouchableOpacity>
+                </View>
+      
+    return (
+        <View style={styles.cardContainer}>
+          <View style={styles.row}>
+            <View style={styles.textContainer}>
+              {header}
+              {title}
+              {footer}
             </View>
           </View>
         </View>
