@@ -65,8 +65,11 @@ export default class CommentCard extends Component {
     /* Header - arrow, timestamp, author, score */
     let arrow = this.state.isCollapsed ? 'ios-arrow-forward' : 'ios-arrow-down';
 
+    let flair = this.props.commentData.author_flair_text + ' • ';
+    if(!this.props.commentData.author_flair_text) flair = null;
+
     let header = <Text style={{color: '#d24919'}} onPress={() => this.onArrowPress()}>
-                   <Icon name={arrow} size={16} color="#d24919"/> {moment().from(this.props.commentData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.commentData.author}&nbsp;&bull;&nbsp;{this.props.commentData.score}
+                   <Icon name={arrow} size={16} color="#d24919"/> {moment().from(this.props.commentData.created_utc*1000, true)}&nbsp;&bull;&nbsp;{this.props.commentData.author}&nbsp;&bull;&nbsp;{flair}{this.props.commentData.score}
                  </Text>
 
     /* Body */

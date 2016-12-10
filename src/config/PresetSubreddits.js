@@ -1,5 +1,11 @@
 export default PresetSubreddits = [
   {
+    "id": "",
+    "display_name": "all",
+    "public_description": "From all subreddits.",
+    "icon_img": ""
+  },
+  {
     "id": "2qi58",
     "display_name": "soccer",
     "public_description": "The football subreddit.\n\nNews, results and discussion about the beautiful game.",
