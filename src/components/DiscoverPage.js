@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
-  ScrollView,
   ListView,
+  View,
   Image,
   StyleSheet,
 } from 'react-native';
@@ -33,6 +33,7 @@ export default class DiscoverPage extends Component {
     this.state = initialState;
 
     this.fetchSubreddits = this.fetchSubreddits.bind(this);
+    this.renderHeader = this.renderHeader.bind(this);
     this.renderRow = this.renderRow.bind(this);
   }
 
@@ -64,7 +65,10 @@ export default class DiscoverPage extends Component {
   }
 
   onSearchButtonPress(searchBar) {
-    this.setState({isLoading: true});
+    this.setState({
+      isLoading: true,
+      dataSource: ds.cloneWithRows([]),
+    });
 
     this.fetchSubreddits(searchBar)
     .then((subredditsArr) => this.setState({
@@ -72,6 +76,26 @@ export default class DiscoverPage extends Component {
       isLoading: false,
       hasNoResults: !subredditsArr.length
     }))
+  }
+
+  renderHeader() {
+    return (
+      <View>
+        <SearchBar
+          ref='searchBar'
+          placeholder='Subreddits'
+          tintColor={'#d24919'}
+          onSearchButtonPress={(searchBar) => this.onSearchButtonPress(searchBar)}
+          onCancelButtonPress={() => this.onCancelButtonPress()}
+          onFocus={() => this.setState({showsCancelButton: true})}
+          showsCancelButton={this.state.showsCancelButton}
+          style={styles.searchBar}
+          searchBarStyle={'minimal'}
+        />
+        {this.state.isLoading ? <LoadingIcon /> : null}
+        {this.state.hasNoResults ? <ErrorIcon errorMsg={'Try again:('}/> : null}
+      </View>
+    )
   }
 
   renderRow(rowData) {
@@ -84,35 +108,14 @@ export default class DiscoverPage extends Component {
   }
 
   render() {
-    let subredditsList;
-    if(this.state.isLoading) {
-      subredditsList = <LoadingIcon />
-    } else {
-      subredditsList = <ListView
-                          scrollsToTop={false} // prevent conflict with scroll view
-                          dataSource={this.state.dataSource}
-                          renderRow={this.renderRow}
-                        />
-    }
-    if(this.state.hasNoResults) {
-      subredditsList = <ErrorIcon errorMsg={'Try again:('}/>
-    }
-
     return (     
-      <Image source={require('../../img/background.jpg')} style={styles.container}>
-        <ScrollView keyboardDismissMode="on-drag">
-          <SearchBar
-            ref='searchBar'
-            placeholder='Subreddits'
-            tintColor={'#d24919'}
-            onSearchButtonPress={(searchBar) => this.onSearchButtonPress(searchBar)}
-            onCancelButtonPress={() => this.onCancelButtonPress()}
-            onFocus={() => this.setState({showsCancelButton: true})}
-            showsCancelButton={this.state.showsCancelButton}
-            style={styles.searchBar}
-          />
-          {subredditsList}
-        </ScrollView>
+      <Image source={require('../../img/background.jpg')} style={styles.container}>          
+        <ListView
+          keyboardDismissMode="on-drag"
+          dataSource={this.state.dataSource}
+          renderHeader={this.renderHeader}
+          renderRow={this.renderRow}
+        />
       </Image>
     );
   }

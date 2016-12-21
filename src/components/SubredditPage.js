@@ -3,11 +3,12 @@ import {
   ListView,
   RefreshControl,
   Image,
-  StyleSheet,
+  StyleSheet
 } from 'react-native';
 import PostCard from './PostCard';
 import LoadingIcon from './LoadingIcon';
 import ErrorIcon from './ErrorIcon';
+import SearchBar from 'react-native-search-bar';
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -28,9 +29,11 @@ export default class SubredditPage extends Component {
       isLoading: true,
       refreshing: false,
       hasNoResults: false,
+      searchString: '',
     }
 
     this.fetchPosts = this.fetchPosts.bind(this);
+    this.renderHeader = this.renderHeader.bind(this);
     this.renderRow = this.renderRow.bind(this);
   }
 
@@ -106,13 +109,36 @@ export default class SubredditPage extends Component {
     });
   }
 
-  renderRow(rowData) {
-    return (
-      <PostCard 
-        postData={rowData}
-        navigator={this.props.navigator}
+  renderHeader() {
+    return(
+      <SearchBar
+        ref='postsSearchBar'
+        placeholder='Posts'
+        tintColor={'#d24919'}
+        onChangeText={(text) => {
+          // console.log('TEXT: ' + text)
+          this.setState({
+            searchString: text,
+            dataSource: ds.cloneWithRows(this._postsArr),
+          })
+        }}
+        style={styles.searchBar}
+        searchBarStyle={'minimal'}
       />
     )
+  }
+
+  renderRow(rowData) {
+    if (rowData.title.includes(this.state.searchString)) {
+      return (
+        <PostCard 
+          postData={rowData}
+          navigator={this.props.navigator}
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -121,7 +147,9 @@ export default class SubredditPage extends Component {
       postsList = <LoadingIcon />
     } else {
       postsList = <ListView
+                    keyboardDismissMode="on-drag"
                     dataSource={this.state.dataSource}
+                    renderHeader={this.renderHeader}
                     renderRow={this.renderRow}
                     onEndReached={this.loadMore.bind(this)}
                     refreshControl={
@@ -151,5 +179,8 @@ const styles = StyleSheet.create({
     width: null,
     height: null,
     paddingTop: 65,
+  },
+  searchBar: {
+    height: 40
   }
 });
