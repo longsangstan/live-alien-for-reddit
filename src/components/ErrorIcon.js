@@ -6,23 +6,18 @@ import {
   StyleSheet
 } from 'react-native';
 
-export default class ErrorIcon extends Component {
-  static propTypes = {
-    errorMsg: React.PropTypes.string,
-  };
-
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
+export default ErrorIcon = (props) => {
+  return (
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <Image style={styles.errorImg} source={require('../../img/crying_snoo.jpg')} />
-          <Text style={{backgroundColor: 'transparent', color: 'black', fontWeight: 'bold'}}>{this.props.errorMsg}</Text>
+          <Text style={{backgroundColor: 'transparent', color: 'black', fontWeight: 'bold'}}>{props.errorMsg}</Text>
        </View>
     );
-  }
 }
+
+ErrorIcon.propTypes = {
+    errorMsg: React.PropTypes.string,
+};
 
 const styles = StyleSheet.create({
   errorImg: {
